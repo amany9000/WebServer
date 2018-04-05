@@ -1,15 +1,31 @@
 var express = require("express");
 var hbs = require("hbs");
+var fs = require("fs");
 
 app = express();
 app.set("view engine",'hbs');
-app.use(express.static(__dirname + "/public"));
+
 
 hbs.registerPartials(__dirname + "/views/partials");
 hbs.registerHelper("getYear", new Date().getFullYear() );
 hbs.registerHelper("makeItBig" , (text) =>{
 	return text.toUpperCase();
 });
+/*
+app.use((req,res,next)=>{
+	res.render("maintenance.hbs");
+}); 
+*/
+
+app.use(express.static(__dirname + "/public"));
+app.use((req,res,next)=>{
+	var now = new Date().toString();
+	var log = `${now}: ${req.method} ${req.url}`;
+	console.log(log);
+	fs.appendFileSync("server.log",log + "\n");
+	next()
+});
+
 app.get('/',(req,res) => {
 	res.render("home.hbs",{
 		heading:"Wellcome, Mr. Wayne!!!",
