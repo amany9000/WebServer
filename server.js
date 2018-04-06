@@ -34,6 +34,12 @@ app.get('/',(req,res) => {
 	});
 });
 
+app.get('/projects',(req,res)=>{
+	res.render("projects.hbs",{
+		heading :"Projects",
+		body   :  "We have done several sabotages through the centuries. For sole monetary sustenance we also provide mercenary services given that the service is not immoral." 
+		});
+});
 app.get("/about",(req,resp)=>{
 	resp.render("about.hbs",{
 		heading : "About Us",
