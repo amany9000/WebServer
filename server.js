@@ -1,6 +1,7 @@
 var express = require("express");
 var hbs = require("hbs");
 var fs = require("fs");
+var port = process.env.port || 3000;
 
 app = express();
 app.set("view engine",'hbs');
@@ -47,6 +48,6 @@ app.get("/intro",(req,res) => {
 	});
 });
 
-app.listen(3000);
-console.log("Server running and listening to port 3000");
+app.listen(port);
+console.log(`Server running and listening to port ${port}`);
 
